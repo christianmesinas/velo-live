@@ -1,0 +1,270 @@
+#map {
+    width: 768px;
+    height: 600px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 3%;
+    z-index: 5;
+}
+
+/* Kaartlegenda */
+.info.legend {
+    background: white;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #333;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+body.dark-mode .info.legend {
+    background: #2a2a2a;
+    color: white;
+}
+
+/* Zoekbalk container */
+#search-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#search-input {
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode #search-input {
+    background-color: #1f1f1f;
+    color: white;
+    border: 1px solid #555;
+}
+
+/* Zoekknop */
+#search-container button {
+    padding: 6px 14px;
+    font-size: 16px;
+    border-radius: 20px;
+    font-weight: bolder;
+    border: 3px solid #2B2D42;
+    color: #2B2D42;
+    background: none;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+#search-container button:hover {
+    border-color: #D41444;
+    color: #D41444;
+}
+
+body.dark-mode #search-container button {
+    border: 3px solid white;
+    color: white;
+}
+
+body.dark-mode #search-container button:hover {
+    border-color: #D41444;
+    color: #D41444;
+}
+
+/* Stationenlijst-container */
+#show-all-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#show-all-container button {
+    padding: 6px 14px;
+    font-size: 16px;
+    font-weight: bolder;
+    border-radius: 20px;
+    border: 3px solid #2B2D42;
+    background: none;
+    color: #2B2D42;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.btn-huren{
+    margin-top: 5px;
+    padding: 6px 14px;
+    font-size: 14px;
+    border-radius: 20px;
+    font-weight: bolder;
+    border: 3px solid #2B2D42;
+    color: #2B2D42;
+    background: none;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.btn-huren:hover{
+    color: #D41444;
+    border-color: #D41444;
+}
+
+.btn-eindstation{
+    margin-top: 5px;
+    padding: 6px 14px;
+    font-size: 14px;
+    border-radius: 20px;
+    font-weight: bolder;
+    border: 3px solid #2B2D42;
+    color: #2B2D42;
+    background: none;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.btn-eindstation:hover{
+    color: #D41444;
+    border-color: #D41444;
+}
+
+#show-all-container button:hover {
+    border-color: #D41444;
+    color: #D41444;
+}
+
+body.dark-mode .main {
+    background: #2a2a2a;
+}
+
+body.dark-mode #show-all-container button {
+    border: 3px solid white;
+    color: white;
+}
+
+body.dark-mode #show-all-container button:hover {
+    border-color: #D41444;
+    color: #D41444;
+}
+
+/* Beschikbare stations lijst */
+#station-list-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    margin-bottom: 40px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+#pincode-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#pincode-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    height: 300px;
+    text-align: center;
+    position: relative;
+}
+
+#pincode-box input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+#pincode-box button {
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bolder;
+    border: 3px solid #2B2D42;
+    color: #2B2D42;
+    background: none;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+#close-popup{
+    border: none !important;
+}
+
+#pincode-box button:hover{
+    color: #D41444;
+    border-color: #D41444;
+}
+
+#close-popup {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+body.dark-mode #station-list-container {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+#station-list-container h3 {
+    text-align: center;
+}
+
+#station-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+}
+
+#station-list li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 15px;
+    color: black;
+}
+
+body.dark-mode #station-list li {
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #555;
+}
+
+/* Huurknop (indien gebruikt) */
+#rent-button {
+    margin-left: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+#rent-button:hover {
+    background-color: #1e7e34;
+}

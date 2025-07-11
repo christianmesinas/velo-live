@@ -1,0 +1,67 @@
+{% extends 'base_admin.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+
+  <h2 class="dashboard-title">{{ _('Welkom terug, admin') }} {{ session["username"] }}</h2>
+
+  <div class="status-grid">
+    {% if laatste_simulatie %}
+      <div class="status-card success">✅ {{ _('Simulatie correct uitgevoerd op') }} {{ laatste_simulatie }}</div>
+    {% else %}
+      <div class="status-card warning">⚠️ {{ _('Nog geen simulatie uitgevoerd') }}</div>
+    {% endif %}
+  </div>
+
+  <div class="quick-links">
+      <a href="{{ url_for('routes.admin_livedata') }}" class="link-card">📄 {{ _('Bekijk Live Data') }}</a>
+      <a href="{{ url_for('routes.admin_simulatie') }}" class="link-card">🚴 {{ _('Start Simulatie') }}</a>
+      <a href="{{ url_for('routes.admin_data') }}" class="link-card">📡 {{ _('Data Fietsstations') }}</a>
+      <a href="{{ url_for('routes.admin_filter') }}" class="link-card">👥 {{ _('Gebruikersoverzicht') }}</a>
+  </div>
+
+</div>
+
+<!-- pop-up -->
+<div id="admin-popup-overlay">
+    <div id="admin-popup">
+        <h3>{{  _('Verder gaan met de live data of een simulatie starten?') }}</h3>
+        <button class="button-popup" id="doorgaan-button">{{ _('Live data') }}</button>
+        <button class="button-popup" id="nieuwe-button">{{ _('Simulatie') }}</button>
+        <button class="button-pu-startpagina" id="startpagina-button"><i class='bx bx-home-alt icon'></i>
+{{  _('Dashboard') }}</button>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+<script>
+  window.onload = function() {
+    if (!sessionStorage.getItem("adminPromptShown")) {
+      const overlay = document.getElementById("admin-popup-overlay");
+      overlay.style.display = "flex";
+
+      document.getElementById("doorgaan-button").onclick = function() {
+        sessionStorage.setItem("adminPromptShown", "true");
+        window.location.href = "{{ url_for('routes.admin_livedata') }}";
+      };
+
+      document.getElementById("nieuwe-button").onclick = function() {
+        sessionStorage.setItem("adminPromptShown", "true");
+        window.location.href = "{{ url_for('routes.admin_simulatie') }}?reset=1";
+      };
+
+      document.getElementById("startpagina-button").onclick = function() {
+        sessionStorage.setItem("adminPromptShown", "true");
+        window.location.href = "{{ url_for('routes.admin') }}";
+      };
+    }
+  };
+</script>
+{% endblock %}

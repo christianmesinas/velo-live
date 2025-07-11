@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{{ _('Velo App') }}{% endblock %}</title>
+
+  <!-- ✅ Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- ✅ Eigen basisstijl -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+<!-- ✅ Header blok – overschrijfbaar in child templates -->
+{% block header %}
+<header>
+  <a href="/">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/LOGO2.png') }}" alt="{{ _('vrouw op fiets') }}" width="100" height="50">
+    </div>
+  </a>
+
+  <input type="checkbox" id="nav-toggle" class="menu-toggle" />
+  <label for="nav-toggle" class="hamburger" aria-label="Menu openen">
+    ☰
+  </label>
+
+  <nav class="nav-links">
+    <a href="/tarieven">{{ _('Tarieven') }}</a>
+    <a href="maps">{{ _('Vind een fiets') }}</a>
+    <a href="help">{{ _('Help') }}</a>
+    <a href="/contact">{{ _('Contact') }}</a>
+    <a href="/defect">{{ _('Fiets defect?') }}</a>
+
+    <div class="language-selector">
+      <select id="language-selector" onchange="changeLanguage()" aria-label="{{ _('Selecteer taal') }}">
+        <option value="nl" {% if language == 'nl' %}selected{% endif %}>Nederlands ▼</option>
+          <option value="en" {% if language == 'en' %}selected{% endif %}>English ▼</option>
+          <option value="fr" {% if language == 'fr' %}selected{% endif %}>Français ▼</option>
+          <option value="es" {% if language == 'es' %}selected{% endif %}>Español ▼</option>
+          <option value="de" {% if language == 'de' %}selected{% endif %}>Deutsch ▼</option>
+      </select>
+    </div>
+  </nav>
+
+  <input type="checkbox" id="nav-button-toggle" class="menu-toggle" />
+  <label for="nav-button-toggle" class="hamprofile a-toggle" aria-label="Knoppenmenu openen">
+    👤
+  </label>
+
+  <div class="nav-buttons slideout">
+    <button id="darkModeToggle" class="dark-toggle-btn" style="right: 0.5rem;">🌗</button>
+    {% if user or session.get('Gebruiker') %}
+      <a href="{{ url_for('routes.profile') }}" class="profile">{{ _('Profiel') }}</a>
+      <a href="{{ url_for('routes.logout') }}" class="logout">{{ _('Uitloggen') }}</a>
+    {% else %}
+      <a href="{{ url_for('routes.login') }}" class="login">{{ _('Inloggen') }}</a>
+      <a href="{{ url_for('routes.login') }}" class="register">{{ _('Account aanmaken') }}</a>
+    {% endif %}
+  </div>
+</header>
+<noscript>
+  <div class="alert alert-warning text-center m-0 no-js-alert" role="alert" style="border-radius: 0;">
+    ⚠️ {{ _('JavaScript is uitgeschakeld in je browser. Voor een optimale ervaring op deze site moet JavaScript ingeschakeld zijn.') }}
+  </div>
+</noscript>
+{% endblock %}
+
+<!-- ✅ Main content -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ✅ Scripts block -->
+{% block scripts %}{% endblock %}
+
+<!-- 🌗 Icoon dat uit de knop omhoog vliegt -->
+<div id="theme-icon-animation" class="theme-icon">🌙</div>
+
+<!-- ✅ Taalselector-script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const url = new URL(window.location.href);
+    const langFromUrl = url.searchParams.get('lang');
+    const serverLanguage = "{{ language | safe }}";
+    const selector = document.getElementById('language-selector');
+    if (selector) {
+      const selectedLanguage = langFromUrl || serverLanguage || 'nl';
+      selector.value = selectedLanguage;
+      console.log(`Setting language selector to: ${selectedLanguage}`);
+    }
+  });
+
+  function changeLanguage() {
+    const language = document.getElementById('language-selector').value;
+    const currentUrl = window.location.href;
+    const url = new URL(currentUrl);
+    url.searchParams.set('lang', language);
+    window.location.href = url.toString();
+  }
+</script>
+
+<!-- ✅ Donkere modus -->
+<script>
+  const toggleButton = document.getElementById("darkModeToggle");
+  const themeIcon = document.getElementById("theme-icon-animation");
+  const prefersDark = localStorage.getItem("darkMode") === "true";
+
+  function updateToggleIcon(isDark) {
+    toggleButton.textContent = isDark ? "🌞" : "🌙";
+  }
+
+  if (prefersDark) {
+    document.body.classList.add("dark-mode");
+    updateToggleIcon(true);
+  } else {
+    updateToggleIcon(false);
+  }
+
+  toggleButton.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const nowDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", nowDark);
+    updateToggleIcon(nowDark);
+
+    const rect = toggleButton.getBoundingClientRect();
+    themeIcon.textContent = nowDark ? "🌙" : "🌞";
+    themeIcon.style.left = `${rect.left + rect.width / 2 - 48}px`;
+    themeIcon.style.top = `${rect.top}px`;
+    themeIcon.classList.add("show");
+
+    setTimeout(() => {
+      themeIcon.classList.remove("show");
+    }, 2000);
+  });
+</script>
+
+<!-- ✅ Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ✅ Flash alerts fade-out -->
+<script>
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach((alert) => {
+      alert.classList.remove('show');
+      alert.classList.add('fade');
+    });
+  }, 2000);
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.getElementById('nav-toggle');
+    const profileToggle = document.getElementById('nav-button-toggle');
+
+    navToggle.addEventListener('change', () => {
+      if (navToggle.checked) {
+        profileToggle.checked = false;
+      }
+    });
+
+    profileToggle.addEventListener('change', () => {
+      if (profileToggle.checked) {
+        navToggle.checked = false;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

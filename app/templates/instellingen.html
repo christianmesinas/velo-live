@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block head %}
+<!-- ✅ Подключение CSS + базовая стилизация страницы настроек /
+     {{ _('Koppelen van CSS + basisstijl voor de instellingenpagina') }} -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/instellingen.css') }}">
+<style>
+  .settings-wrapper {
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  body.dark-mode .settings-wrapper {
+    background-color: #1f1f1f;
+    color: #f0f0f0;
+  }
+
+  .form-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  .return-button {
+    max-width: 700px;
+    margin: 2rem auto 0 auto;
+    padding-left: 2.5rem;
+  }
+
+  .alert {
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+{% endblock %}
+
+{#{% block header %}{% endblock %} <!-- deze block is nodig om de header te verbergen, dus met deze kan jij bepalen of dit block moet verborgen worden of niet -->#}
+
+{% block content %}
+<!-- ✅ Кнопка возврата на профиль / {{ _('Terug naar profiel knop') }} -->
+<div class="return-button">
+  <a href="{{ url_for('routes.profile') }}" class="btn btn-outline-secondary">← {{ _('Terug naar profiel') }}</a>
+</div>
+
+<div class="settings-wrapper">
+  <h2 class="form-title">{{ _('Instellingen') }}</h2>
+
+  <!-- ✅ Показываем флеш-сообщения об успехе / {{ _('Weergeven van flashberichten') }} -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="mb-4">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ _('Sluiten') }}"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- ✅ Форма настроек пользователя / {{ _('Gebruikersinstellingenformulier') }} -->
+  <form method="POST" action="{{ url_for('routes.instellingen') }}">
+    <div class="mb-3">
+      <label for="titel" class="form-label">{{ _('Aanspreekvorm') }}</label>
+      <select class="form-select" id="titel" name="titel" autocomplete="honorific-prefix">
+        <option value="" {% if not user.titel %}selected{% endif %}>{{ _('...') }}</option>
+        <option value="heer" {% if user.titel == 'heer' %}selected{% endif %}>{{ _('Heer') }}</option>
+        <option value="vrouw" {% if user.titel == 'vrouw' %}selected{% endif %}>{{ _('Vrouw') }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="voornaam" class="form-label">{{ _('Voornaam') }}</label>
+      <input type="text" class="form-control" id="voornaam" name="voornaam" autocomplete="given-name" value="{{ user.voornaam or '' }}">
+    </div>
+
+    <div class="mb-3">
+      <label for="achternaam" class="form-label">{{ _('Achternaam') }}</label>
+      <input type="text" class="form-control" id="achternaam" name="achternaam" autocomplete="family-name" value="{{ user.achternaam or '' }}">
+    </div>
+
+    <div class="mb-3">
+      <label for="telefoonnummer" class="form-label">{{ _('Telefoonnummer') }}</label>
+      <input type="tel" class="form-control" id="telefoonnummer" name="telefoonnummer"
+             pattern="^(0|\+)[1-9][0-9]{7,14}$"
+             title="{{ _('Voer een geldig telefoonnummer in. Begin met 0 of +, gevolgd door 8 tot 15 cijfers. Geen spaties of symbolen.') }}"
+             autocomplete="tel"
+             value="{{ user.telefoonnummer or '' }}">
+      <div class="form-text text-danger">
+        {{ _('Bijv. 0478123456 of +32478123456 (geen spaties of leestekens)') }}
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="email" class="form-label">{{ _('E-mailadres') }}</label>
+      <input type="email" class="form-control" id="email" name="email"
+             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+             title="{{ _('Voer een geldig e-mailadres in, bv. naam@example.com') }}"
+             required
+             autocomplete="email"
+             value="{{ user.email or '' }}">
+      <div class="form-text text-danger">{{ _('Bijv. naam@example.com') }}</div>
+    </div>
+
+    <!-- ✅ Кнопки отправки и отмены / {{ _('Opslaan en annuleren knoppen') }} -->
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary">{{ _('Opslaan') }}</button>
+      <a href="{{ url_for('routes.profile') }}" class="btn btn-secondary">{{ _('Annuleren') }}</a>
+    </div>
+  </form>
+
+  <hr class="my-4">
+
+  <!-- ✅ Форма удаления аккаунта / {{ _('Formulier voor account verwijderen') }} -->
+  <form method="POST" action="{{ url_for('routes.delete_account') }}">
+    <button type="submit" class="btn btn-danger w-100"
+            onclick="return confirm('{{ _('Weet u zeker dat u uw account permanent wilt verwijderen?') }}')">
+      {{ _('Verwijder account') }}
+    </button>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form[action="{{ url_for('routes.instellingen') }}"]');
+
+  form.addEventListener('submit', function (e) {
+    const requiredFields = [
+      { id: 'voornaam', label: '{{ _("voornaam") }}' },
+      { id: 'achternaam', label: '{{ _("achternaam") }}' },
+      { id: 'email', label: '{{ _("e-mailadres") }}' }
+    ];
+
+    let fouten = [];
+
+    requiredFields.forEach(field => {
+      const input = document.getElementById(field.id);
+      if (!input.value.trim()) {
+        fouten.push(`• {{ _('Vul het veld') }} '${field.label}' {{ _('in.') }}`);
+      } else if (!input.checkValidity()) {
+        fouten.push(`• {{ _('Ongeldige invoer bij') }} '${field.label}'.`);
+      }
+    });
+
+    if (fouten.length > 0) {
+      e.preventDefault(); // voorkom dat formulier wordt verzonden
+      alert("{{ _('Foutmelding:') }}\n\n" + fouten.join("\n"));
+    }
+  });
+});
+</script>
+{% endblock %}

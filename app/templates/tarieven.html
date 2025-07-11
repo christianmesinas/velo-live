@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Tarieven') }}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tarieven.css') }}">
+{% endblock %}
+
+{% block content %}
+{% if session['Gebruiker'] and session['Gebruiker'].get('abonnement') and session['Gebruiker']['abonnement'] != 'Geen abonnement' %}
+  <div style="background-color: #fff3cd; color: #856404; padding: 15px; margin: 20px auto; border: 1px solid #ffeeba; border-radius: 8px; max-width: 800px; text-align: center;">
+    Je hebt al een {{ session['Gebruiker']['abonnement'] | lower }}.
+  </div>
+{% endif %}
+
+<div class="div4">
+    <div id="card-wrapper" class="card wrapper">
+    <ul class="card-slider swiper-wrapper">
+        <li class="card-item swiper-slide">
+           <img class="card-image"src="../static/img/img_tarieven_main.jpg">
+            <div class="card-item__content">
+                <h1 class="card-item__title" style="margin-bottom: 5px;">{{ _('DAGPAS') }}</h1>
+                <img class="streep" style="width: 30%;" src="../static/images/streep.svg">
+                <p class="card-item__text">{{ _('24 uur toegang tot de Velo-fietsen!') }}<br>
+                {{ _('Al jouw ritten van 30 minuten inbegrepen.') }}<br>
+                {{ _('Plaats een fiets na elke rit terug in een Velo-station naar keuze.') }}<br>
+                {{ _('Een rit start van het moment je een fiets krijgt toegewezen in een Velo-station, ') }}<br>
+                {{ _('en eindigt bij registratie van jouw fiets in een Velo-station.') }}<br></p>
+                <a href="/tarieven/dagpas"><button class="card-slider__button">{{ _('KOOP NU') }}</button></a>
+            </div>
+        </li>
+        <li class="card-item swiper-slide">
+            <img class="card-image"src="../static/img/img_defect_main.jpg">
+            <div class="card-item__content">
+                <h1 class="card-item__title" style="margin-bottom: 5px;">{{ _('WEEKPAS') }}</h1>
+                <img class="streep" style="width: 30%;" src="../static/images/streep.svg">
+                <p class="card-item__text">{{ _('Een week toegang tot de Velo-fietsen!') }}<br>
+                {{ _('Al jouw ritten van 30 minuten inbegrepen.') }}<br>
+                {{ _('Plaats een fiets na elke rit terug in een Velo-station naar keuze.') }}<br>
+                {{ _('Een rit start van het moment je een fiets krijgt toegewezen in een Velo-station, ') }}<br>
+                {{ _('en eindigt bij registratie van jouw fiets in een Velo-station.') }}<br></p>
+                <a href="/tarieven/weekpas"><button class="card-slider__button">{{ _('KOOP NU') }}</button></a>
+            </div>
+        </li>
+        <li class="card-item swiper-slide">
+            <img class="card-image"src="../static/img/img_locatie_main.jpg">
+            <div class="card-item__content">
+                <h1 class="card-item__title" style="margin-bottom: 5px;">{{ _('JAARKAART') }}</h1>
+                <img class="streep" style="width: 30%;" src="../static/images/streep.svg">
+                <p class="card-item__text">{{ _('Een jaar lang toegang tot de Velo-fietsen!') }}<br>
+                {{ _('Al jouw ritten van 30 minuten inbegrepen.') }}<br>
+                {{ _('Plaats een fiets na elke rit terug in een Velo-station naar keuze.') }}<br>
+                {{ _('Een rit start van het moment je een fiets krijgt toegewezen in een Velo-station, ') }}<br>
+                {{ _('en eindigt bij registratie van jouw fiets in een Velo-station.') }}<br></p>
+                <a href="/tarieven/jaarkaart"><button class="card-slider__button">{{ _('KOOP NU') }}</button></a>
+            </div>
+        </li>
+    </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

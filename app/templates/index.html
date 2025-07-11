@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<!--SwiperJS gebruiken, das free en open-source :D-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="div1">
+  <div class="text-spot">
+    <span class="bigtext">{{ _('ANTWERPEN') }} <span id="big-text-part" class="clr-red">{{ _('BEWEEGT.') }}</span><br id="break-size">{{ _('JIJ') }} <span class="clr-red">{{ _('OOK?') }}</span></span>
+    <span class="smoltext">{{ _('Jouw rit, jouw stad, jouw tempo.') }}<br>
+    {{ _('Als je vlot door de stad wil, huur je een deelfiets.') }} <br>
+    {{ _('Gebruik Velo voor een dag, een week of een jaar.') }}</span>
+    <img style="margin-top: 5px; width: calc(8vw + 40vw);" src="../static/images/component1.svg">
+  </div>
+</div>
+
+<div class="div2 swiper">
+  <div id="card-wrapper" class="card-wrapper">
+  <ul class="card-slider swiper-wrapper">
+    <li class="card-item swiper-slide">
+      <img class="card-image"src="../static/img/img_tarieven_main.jpg">
+      <div class="card-item__content">
+        <h1 class="card-item__title">{{ _('FORMULES EN') }} <span class="clr-red">{{ _('TARIEVEN') }}</span></h1>
+        <img style="width: 90%;" src="../static/images/component1.svg">
+        <p class="card-item__text">{{ _('Kies jouw formule!') }}<br>
+        {{ _('Al jouw ritten van 30 minuten zijn inbegrepen in de prijs van jouw gekozen formule.') }}<br>
+        {{ _('Plaats na elke rit een fiets terug in een Velo-station dichtbij jouw bestemming.') }}<br>
+        {{ _('Je kan een pas kopen voor een dag, een week of een jaar.') }}<br>
+        </p>
+        <a href="/tarieven"><button class="card-slider__button">{{ _('KIES JE FORMULE') }}</button></a>
+      </div>
+    </li>
+    <li class="card-item swiper-slide">
+      <img class="card-image"src="../static/img/img_defect_main.jpg">
+      <div class="card-item__content">
+        <h1 class="card-item__title">{{ _('FIETS') }} <span class="clr-red">{{ _('DEFECT?') }}</span></h1>
+        <img style="width: 90%;" src="../static/images/component1.svg">
+        <p class="card-item__text">{{ _('Meld een fiets als defect.') }}<br>
+        {{ _('Zo wordt de fiets automatisch geblokkeerd in het Velo-station en kunnen onze chauffeurs deze ophalen om te laten herstellen.') }}<br>
+        {{ _('Andere gebruikers zullen de fiets dan niet meer toegewezen krijgen.') }}<br>
+        {{ _('Het zadel omdraaien is handig, maar is geen must als je een melding gemaakt hebt.') }}<br></p>
+        <a href="/defect"><button class="card-slider__button">{{ _('DEFECT MELDEN') }}</button></a>
+      </div>
+    </li>
+    <li class="card-item swiper-slide">
+      <img class="card-image"src="../static/img/img_locatie_main.jpg">
+      <div class="card-item__content">
+        <h1 class="card-item__title">{{ _('306 LOCATIES MET') }} <span class="clr-red">{{ _('FIETSEN') }}</span></h1>
+        <img style="width: 90%;" src="../static/images/component1.svg">
+        <p class="card-item__text">{{ _('Overal in Antwerpen staat er een fiets voor je klaar!') }}<br>
+        {{ _('✔ Fietsen 24/7 beschikbaar.') }}<br>
+        {{ _('✔ Herverdeling over de Velo-stations 7/7.') }}<br>
+        {{ _('✔ Kaart of app met live beschikbaarheid.') }}<br>
+        <a href="/maps"><button class="card-slider__button">{{ _('VIND EEN FIETS') }}</button></a>
+      </div>
+    </li>
+  </ul>
+</div>
+  <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+    <div class="swiper-scrollbar"></div>
+</div>
+
+<script>
+  const button = document.querySelector('.card-slider__button');
+  const wrapper = document.querySelector('.card-item');
+
+  button.addEventListener('mousedown', () => {
+    wrapper.classList.add('pressed');
+  });
+
+  button.addEventListener('mouseup', () => {
+    wrapper.classList.remove('pressed');
+  });
+
+  button.addEventListener('mouseleave', () => {
+    wrapper.classList.remove('pressed');
+  });
+</script>
+
+<div class="div3">
+  <div class="text-spot">
+    <h1 class="bigtext"><span class="clr-red">{{ _('HULP') }}</span> {{ _('NODIG?') }}</h1>
+    <span class="smoltext">{{ _('Jouw rit, jouw stad, jouw tempo.') }}<br>
+    {{ _('Neem een Velo en doorkruis de stad. Plaats een fiets na elke rit terug in een Velo-station naar keuze.') }} <br>
+    {{ _('Gebruik Velo voor een dag, een week of een jaar.') }}</span>
+    <img style="margin-top: 5px; width: calc(8vw + 40vw);" src="../static/images/component1.svg">
+  </div>
+</div>
+
+<!--ook script van SwiperJS toevoegen natuurlijk-->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="../static/js/swiper.js"></script>
+
+<footer id="footer">
+  <div class="footerwrapper">
+  <div class="footerfiets">
+    <img src="../static/images/fietsvrouw.svg" style=" width: 450px">
+  </div>
+  <div class="copyright">
+    <p>{{ _('Copyright Velo Antwerpen 2025 ALLE RECHTEN VOORBEHOUDEN') }}</p>
+  </div>
+  <div class="contact">
+    <h2 style="font-size:40px; margin-bottom:10px">{{ _('CONTACT') }}</h2>
+    <ul style="padding:0">
+      <li>info@velo-antwerpen.be</li>
+      <li>Vosseschijnstraat 16-20 2030 Antwerpen</li>
+      <li>+32 (0)3 206 50 30</li>
+    </ul>
+  </div>
+  <div class="socials">
+    <ul>
+      <li><a href="#"><img src="../static/images/Logo_Linkedin.png"></a></li>
+      <li><a href="#"><img src="../static/images/Logo_Tiktok.png"></a></li>
+      <li><a href ="#"><img src="../static/images/Logo_Facebook.png"></a></li>
+      <li><a href="#"><img src="../static/images/Logo_Youtube.png"></a></li>
+      <li><a href="#"><img src="../static/images/Logo_Insta.png"></a></li>
+    </ul>
+  </div>
+
+  </div>
+</footer>
+
+{% endblock %}

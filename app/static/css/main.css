@@ -1,0 +1,292 @@
+.div1{
+  background: url("../images/div-1.png");
+  height: calc(6vh + 40vw);
+  background-color: white;
+  border-radius: 20px;
+  margin: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .div1{
+  background-color: black;
+}
+
+.text-spot{
+  display: grid;
+  padding-top: calc(0.5vh + 8vw);
+  padding-left: 2rem;
+}
+
+.bigtext{
+  font-family: 'Segoe UI';
+  font-weight: bolder;
+  font-size: calc(3.5vw + 10px);
+}
+
+.smoltext{
+  font-family: 'Segoe UI';
+  display: block;
+  margin-top: calc(0.3vw + 1.5vw);
+}
+
+.div3 .text-spot .smoltext{
+  width: calc(5vw + 45vw);
+}
+
+.div2{
+  height: 35rem;
+}
+
+.card-wrapper{
+  max-width: 1100px;
+  margin: 0 60px 35px;
+  padding: 20px;
+}
+
+.card-slider .card-item {
+  width: 95%;
+  position: relative;
+  max-width: 65rem;
+  /*margin: auto; WAAROM WERKT DIT NI??? DA ZOU MOETEN WERKENNN AAAAAAAAAAAAAAAAAAAAAAAAAAAAA*/
+  background: white;
+  box-shadow: 0px 10px 10px rgba(34, 35, 58, 0.2);
+  padding: 25px;
+  border-radius: 25px;
+  height: 400px;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+}
+
+body.dark-mode .card-slider .card-item{
+  width: 95%;
+  position: relative;
+  max-width: 65rem;
+  /*margin: auto; WAAROM WERKT DIT NI??? DA ZOU MOETEN WERKENNN AAAAAAAAAAAAAAAAAAAAAAAAAAAAA*/
+  background: black;
+  box-shadow: 0px 10px 10px rgba(34, 35, 58, 0.2);
+  padding: 25px;
+  border-radius: 25px;
+  height: 400px;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+}
+
+.card-slider .card-item{
+  width: 500px;
+  height: fit-content;
+  min-height: 30rem;
+  list-style: none;
+  display: flex;
+}
+
+.card-item__title{
+  font-size: 38px;
+}
+
+.card-item{
+  margin-right: 8rem;
+}
+
+.card-button{
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  color: #e698a7;
+  border: 3px solid #e698a7;
+  transition: 0.5s ease;
+}
+
+.card-button:hover{
+  border-color: #D41444;
+  color: #D41444;
+}
+
+.card-slider.pressed {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.card-image{
+  width: 55%;
+  position: relative;
+  left: -8%;
+  border-radius: 20px;
+}
+
+.card-slider__button{
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bolder;
+  border: 3px solid #2B2D42;
+  color: #2B2D42;
+  background: none;
+  transition: 0.5s ease;
+  cursor: pointer;
+}
+
+.card-slider__button:hover{
+  border-color: #D41444;
+  color: #D41444;
+}
+
+.card-slider .card-item.pressed {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+.div3{
+  background: url("../images/help.png");
+  height: calc(6vh + 40vw);
+  background-color: white;
+  border-radius: 20px;
+  margin: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .div3{
+  background-color: black;
+}
+
+/* Footer / Contactbalk */
+.footerwrapper {
+  background: url(../images/footerbalk.png);
+  background-size: 100vw;
+  background-position: bottom;
+  display: flex;
+  position: relative;
+  align-items: center;
+  color: white;
+  width: auto;
+  height: 80vh;
+  background-repeat: no-repeat;
+  margin: 20px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .footerwrapper{
+  background: url(../images/footerbalk.png);
+  background-size: 100vw;
+  background-position: bottom;
+  display: flex;
+  position: relative;
+  align-items: center;
+  color: white;
+  width: auto;
+  height: 80vh;
+  background-repeat: no-repeat;
+  margin: 20px;
+  background-color: black;
+  border-radius: 20px;
+}
+.socials {
+  position: absolute;
+  margin-right: 20px;
+  bottom: 0;
+  right: 0;
+}
+
+.socials img {
+  width: 50px;
+}
+
+.socials ul {
+  display: flex;
+  gap: 15px;
+  marker: none;
+}
+
+.copyright {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  margin-left: 20px;
+  color: #4d4d4d;
+}
+
+.contact {
+  position: absolute;
+  text-align: right;
+  font-weight: bold;
+  right: 20px;
+  bottom: 150px;
+  color: #4d4d4d;
+}
+
+.footerfiets {
+  position: relative;
+  left: 2rem;
+}
+
+
+ul li {
+  list-style: none;
+}
+
+
+.clr-red{
+  color: #D41444;
+}
+
+/* Aanpassingen voor consistente dark mode */
+
+body {
+  background-color: #f4f4f4;
+}
+
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+body.dark-mode .card-slider .card-item {
+  background-color: #1f1f1f;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .card-slider__button {
+  border: 3px solid white;
+  color: white;
+}
+
+body.dark-mode .card-slider__button:hover {
+  border-color: #D41444;
+  color: #D41444;
+}
+
+body.dark-mode .bigtext,
+body.dark-mode .smoltext {
+  color: white;
+}
+
+/* Optioneel: achtergronden naar #1e1e1e voor exacte match met defect.css */
+body.dark-mode .div1,
+body.dark-mode .div3,
+body.dark-mode .footerwrapper {
+  background-color: #1e1e1e;
+}
+
+/* ====== Responsive Design ======= */
+@media (max-width: 1175px) {
+ #big-text-part{
+   display: block;
+ }
+
+  .text-spot{
+    padding-top: calc(0.2vh + 5vw);
+  }
+
+  #break-size{
+    display: contents;
+  }
+}

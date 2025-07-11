@@ -1,0 +1,249 @@
+/* Basis reset voor marges en padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+/* Donkere modus body-achtergrond (milder zwart) */
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* Formulier container */
+.form-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+body.dark-mode .form-container {
+  background-color: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* Formulier rij voor de velden */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+/* Formuliergroep voor elk veld in de rij */
+.form-row .form-group {
+  flex: 1 1 49%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Formuliervelden */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="password"],
+input[type="checkbox"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Donkere modus voor invoervelden */
+body.dark-mode input[type="text"],
+body.dark-mode input[type="email"],
+body.dark-mode input[type="tel"],
+body.dark-mode input[type="date"],
+body.dark-mode input[type="password"] {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+  border: 1px solid #444;
+}
+
+/* Labels */
+label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+body.dark-mode label {
+  color: #dddddd;
+}
+
+/* Submitknop standaard */
+button[type="submit"] {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bolder;
+  border: 3px solid #2B2D42;
+  color: #2B2D42;
+  background: none;
+  transition: 0.5s ease;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  border-color: #D41444;
+  color: #D41444;
+}
+
+/* Submitknop in dark mode */
+body.dark-mode button[type="submit"] {
+  border: 3px solid #dddddd;
+  color: #dddddd;
+  background: none;
+}
+
+body.dark-mode button[type="submit"]:hover {
+  border-color: #D41444;
+  color: #D41444;
+}
+
+/* Checkbox stijl */
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+body.dark-mode input[type="checkbox"] {
+  filter: brightness(120%);
+}
+
+/* Links in dark mode */
+body.dark-mode a {
+  color: #84aaff;
+}
+
+/* Foutmeldingen in dark mode */
+body.dark-mode p[style*="color: red"] {
+  color: #ff7070 !important;
+}
+
+/* Laatste form-group zonder extra marge */
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Knoppen onderaan */
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Extra div */
+.div2 {
+  height: 35rem;
+}
+
+/* Specifiek veld styling */
+.voornaam {
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Kaartstijl */
+.card-slider .card-item {
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 90%;
+  margin: 50px auto;
+  background: white;
+  box-shadow: 0 10px 10px rgba(34, 35, 58, 0.2);
+  padding: 30px;
+  border-radius: 25px;
+  min-height: 300px;
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+}
+
+body.dark-mode .card-slider .card-item {
+  background-color: #1e1e1e;
+  box-shadow: 0 10px 10px rgba(34, 35, 58, 0.2);
+}
+
+/* Kaartinhoud */
+.card-item__content {
+  margin-left: 20rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Titel */
+.card-item__title {
+  font-size: 38px;
+}
+
+/* Streep onder titel */
+.streep {
+  width: 60px;
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+/* Rand rechts */
+.card-item {
+  margin-right: 8rem;
+}
+
+/* Afbeelding */
+.card-image {
+  width: 20%;
+  height: 80%;
+  position: absolute;
+  left: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 20px;
+}
+
+/* Kaartknop */
+.card-slider__button {
+  padding: 6px 14px;
+  margin-top: 20px;
+  border-radius: 20px;
+  font-weight: bolder;
+  border: 3px solid #2B2D42;
+  color: #2B2D42;
+  background: none;
+  transition: 0.5s ease;
+  cursor: pointer;
+}
+
+.card-slider__button:hover {
+  border-color: #D41444;
+  color: #D41444;
+}
+
+/* Indrukken effect */
+.card-slider .card-item.pressed {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+body.dark-mode .div.card-item {
+  background-color: #1e1e1e;
+}

@@ -1,0 +1,172 @@
+/* ✅ Algemene achtergrond van de pagina */
+.background {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+body.dark-mode {
+    background: linear-gradient(to bottom, #1e1e1e, #2a2a2a); /* ✅ Gradient van top naar bodem */
+    color: white;
+}
+
+body.dark-mode .background {
+    background-color: #1a1a1a; /* ✅ Minder zwart dan voorheen */
+    color: white;
+}
+
+/* ✅ Marges */
+.mt-5 { margin-top: 2rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+/* ✅ Instellingen-knop rechtsboven */
+.instellingen-button-topright {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 20;
+}
+
+.instellingen-button-topright .btn-primary {
+    position: static;
+    top: auto;
+    right: auto;
+}
+
+body.dark-mode .instellingen-button-topright .btn-primary {
+    background: none;
+    border: 3px solid white;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: 0.5s ease;
+}
+
+body.dark-mode .instellingen-button-topright .btn-primary:hover {
+    border-color: #D41444;
+    color: #D41444;
+}
+
+/* ✅ Profielfoto */
+.profile-foto {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 1rem;
+    display: block;
+    user-select: none;
+}
+
+/* ✅ Kaarten (info, geschiedenis enz.) */
+.card {
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+    user-select: none;
+    border: none;
+    background-color: white;
+    padding: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card .card-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.card .card-text {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+body.dark-mode .card {
+    background-color: #1f1f1f; /* ✅ Extra visueel onderscheid t.o.v. de achtergrond */
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+body.dark-mode .card .card-title,
+body.dark-mode .card .card-text {
+    color: white;
+}
+
+/* ✅ Knoppenstijl */
+.card-slider__button,
+button[type="submit"] {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bolder;
+    border: 3px solid #2B2D42;
+    color: #2B2D42;
+    background: none;
+    transition: 0.5s ease;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.card-slider__button:hover,
+button[type="submit"]:hover {
+    border-color: #D41444;
+    color: #D41444;
+}
+
+body.dark-mode .card-slider__button,
+body.dark-mode button[type="submit"] {
+    border: 3px solid white;
+    color: white;
+}
+
+body.dark-mode .card-slider__button:hover,
+body.dark-mode button[type="submit"]:hover {
+    border-color: #D41444;
+    color: #D41444;
+}
+
+/* ✅ Geschiedenis-lijst */
+.card ul {
+    padding-left: 0;
+}
+
+/* ✅ Formulier (optioneel als je forms gebruikt op profielpagina) */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode input,
+body.dark-mode textarea {
+    background-color: #2a2a2a;
+    color: white;
+    border: 1px solid #555;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* ✅ Gebruiksvriendelijkheid: tekstselectie blokkeren (optioneel) */
+* {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}

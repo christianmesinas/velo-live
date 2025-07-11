@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="faq-wrapper">
+
+  <!-- Categorie 1: Account & Betaling -->
+  <section class="faq-category">
+    <h2>{{ _('Account & Betaling') }}</h2>
+    <details>
+      <summary>{{ _('Hoe maak ik een account aan?') }}</summary>
+      <p>{{ _('Ga naar de registratiepagina, vul je gegevens in en bevestig je e-mail via de link die je ontvangt.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Welke betaalmethodes worden geaccepteerd?') }}</summary>
+      <p>{{ _('Je kunt betalen met iDEAL, Bancontact, Visa en Mastercard.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Hoe verander ik mijn betaalmethode?') }}</summary>
+      <p>{{ _('Ga naar "Mijn profiel" > "Betalingsgegevens" en klik op "Bewerken" om een andere betaalmethode toe te voegen.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Wanneer wordt mijn betaling afgeschreven?') }}</summary>
+      <p>{{ _('Betalingen worden binnen 24 uur na bevestiging van je bestelling afgeschreven.') }}</p>
+    </details>
+  </section>
+
+  <!-- Categorie 2: Verhuur & Gebruik -->
+  <section class="faq-category">
+    <h2>{{ _('Verhuur & Gebruik') }}</h2>
+    <details>
+      <summary>{{ _('Hoe huur ik een fiets?') }}</summary>
+      <p>{{ _('Open de app, selecteer een beschikbaar station, scan de QR-code op de fiets en je rit start automatisch.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Wat als de fiets defect is?') }}</summary>
+      <p>{{ _('Maak een foto in de app en meld het defect direct via “Probleem melden”. We zorgen voor vervanging of reparatie.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Hoe eindig ik mijn rit?') }}</summary>
+      <p>{{ _('Plaats de fiets terug in een vrije parkeerplek, sluit de ketting en bevestig in de app dat je bent geeindigd.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Mag ik buiten de stad fietsen?') }}</summary>
+      <p>{{ _('Je mag tot 5 km buiten de stad grens fietsen, daarna worden extra kosten per kilometer gerekend.') }}</p>
+    </details>
+  </section>
+
+  <!-- Categorie 3: Abonnementen -->
+  <section class="faq-category">
+    <h2>{{ _('Abonnementen') }}</h2>
+    <details>
+      <summary>{{ _('Welke abonnementen zijn er?') }}</summary>
+      <p>{{ _('We bieden dag-, week-, maand- en jaarabonnementen aan. Kijk op de tarievenpagina voor details.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Kan ik mijn abonnement pauzeren?') }}</summary>
+      <p>{{ _('Ja, in je profiel kun je per maand één keer een pauze aanvragen.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Hoe annuleer ik mijn abonnement?') }}</summary>
+      <p>{{ _('Ga naar "Mijn abonnement" en klik op "Opzeggen". Je abonnement stopt aan het eind van de huidige periode.') }}</p>
+    </details>
+  </section>
+
+  <!-- Categorie 4: Veiligheid & Regels -->
+  <section class="faq-category">
+    <h2>{{ _('Veiligheid & Regels') }}</h2>
+    <details>
+      <summary>{{ _('Moet ik een helm dragen?') }}</summary>
+      <p>{{ _('Het is niet verplicht, maar we raden het sterk aan voor je eigen veiligheid.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Wat zijn de verkeersregels voor fietsers?') }}</summary>
+      <p>{{ _('Volg altijd de borden, fiets in de fietslaan en geef handgebaren bij afslaan.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Mag ik met twee personen op één fiets?') }}</summary>
+      <p>{{ _('Nee, onze fietsen zijn ontworpen voor één persoon om veiligheidsredenen.') }}</p>
+    </details>
+  </section>
+
+  <!-- Categorie 5: Klantenservice & Ondersteuning -->
+  <section class="faq-category">
+    <h2>{{ _('Klantenservice & Ondersteuning') }}</h2>
+    <details>
+      <summary>{{ _('Hoe bereik ik de klantenservice?') }}</summary>
+      <p>{{ _('Stuur een e-mail naar support@velo-antwerpen.be of bel naar 0800-12345.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Wat zijn de openingstijden van support?') }}</summary>
+      <p>{{ _('Onze klantenservice is bereikbaar van maandag t/m vrijdag van 8u tot 18u.') }}</p>
+    </details>
+    <details>
+      <summary>{{ _('Waar vind ik de gebruikershandleiding?') }}</summary>
+      <p>{{ _('De handleiding staat online via de link "Help" in de footer of direct op onze website.') }}</p>
+    </details>
+  </section>
+
+</div>
+{% endblock %}
+
