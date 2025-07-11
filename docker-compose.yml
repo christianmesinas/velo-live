@@ -42,7 +42,7 @@ services:
       - db
     volumes:
       - .:/app
-    command: python app.py
+    command: python main.py
 
   app:
     build: .

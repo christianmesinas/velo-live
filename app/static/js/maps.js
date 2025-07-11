@@ -28,7 +28,7 @@ legend.onAdd = function (map) {
     // Add each category to the legend HTML
     categories.forEach(function (cat) {
         div.innerHTML +=
-            '<img src="' + cat.img + '" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 8px; margin-bottom: 2px">' +
+            '<img app="' + cat.img + '" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 8px; margin-bottom: 2px">' +
             cat.label + '<br>';
     });
 

@@ -84,7 +84,7 @@ De Velo-applicatie beheert een fietsdeelsysteem voor Antwerpen, met functionalit
    - Plaats de Velo JSON-dataset in `app/api/stations.csv`.
    - Voer uit:
      ```bash
-     python app.py --init-data
+     python main.py --init-data
      ```
 
 ## Omgevingsvariabelen
