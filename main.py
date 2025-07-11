@@ -17,7 +17,12 @@ stripe.api_key = getenv('STRIPE_SECRET_KEY')
 
 # ✅ Initialiseer Flask
 app = Flask(__name__, template_folder="app/templates", static_folder="app/static")
-app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL', 'postgresql://admin:Velo123@db:5432/velo_community')
+database_url = getenv('DATABASE_URL')
+if database_url and database_url.startswith('postgres://'):
+    # Render geeft soms postgres:// maar SQLAlchemy wil postgresql://
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url or 'postgresql://admin:Velo123@db:5432/velo_community'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
