@@ -11,6 +11,9 @@ from authlib.integrations.flask_client import OAuth
 from flask_babel import Babel, _
 import logging
 
+# Configureer logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 # ✅ Laad .ENV-bestand (alleen lokaal nodig, niet op Render)
 load_dotenv()
 stripe.api_key = getenv('STRIPE_SECRET_KEY')
@@ -33,19 +36,16 @@ app.config['BABEL_SUPPORTED_LOCALES'] = ['nl', 'en', 'fr', 'es', 'de']
 
 
 def get_locale():
-    # Check query parameter
     if 'lang' in request.args:
         language = request.args.get('lang')
         if language in ['nl', 'en', 'fr', 'es', 'de']:
             session['language'] = language
             logging.debug(f"Set language from query param: {language}")
             return language
-    # Check session
     if 'language' in session:
         language = session['language']
         logging.debug(f"Language from session: {language}")
         return language
-    # Standaardtaal Nederlands
     logging.debug("Using default language: nl")
     return 'nl'
 
@@ -72,28 +72,41 @@ oauth.register(
 # ✅ Registreer je Blueprint-routes
 app.register_blueprint(routes)
 
+
+# Testroute om te controleren of de server draait
+@app.route('/test')
+def test():
+    logging.info("Testroute aangeroepen")
+    return "Hello, World! Server is running."
+
+
 # Maak databasetabellen en voer initiële simulatie uit
 with app.app_context():
     try:
+        logging.info("Proberen databasetabellen aan te maken...")
         db.create_all()  # Maakt alle tabellen aan (Station, Fiets, Gebruiker, etc.)
-        print("✅ Tabellen automatisch aangemaakt bij opstart!")
+        logging.info("✅ Tabellen succesvol aangemaakt bij opstart!")
 
-        # Voer initiële simulatie uit om database te vullen
-        simulation.sla_stations_op_in_db(simulation.stations)
-        fietsen = simulation.genereer_fietsen(5800, simulation.stations)
-        simulation.sla_fietsen_op_in_db(fietsen)
-        gebruikers = simulation.genereer_gebruikers(50000)
-        simulation.sla_gebruikers_op_in_db(gebruikers)
-        geschiedenis = simulation.genereer_geschiedenis(gebruikers, fietsen, simulation.stations, dagen=30)
-        simulation.sla_geschiedenis_op_in_db(geschiedenis)
-        print("✅ Initiële simulatie uitgevoerd: database gevuld met gebruikers, fietsen en geschiedenis")
+        # Controleer of de fietsen-tabel leeg is voordat de simulatie wordt uitgevoerd
+        if db.session.query(Base.metadata.tables['fietsen']).count() == 0:
+            logging.info("Database is leeg, initiële simulatie wordt uitgevoerd...")
+            simulation.sla_stations_op_in_db(simulation.stations)
+            fietsen = simulation.genereer_fietsen(5800, simulation.stations)
+            simulation.sla_fietsen_op_in_db(fietsen)
+            gebruikers = simulation.genereer_gebruikers(50000)
+            simulation.sla_gebruikers_op_in_db(gebruikers)
+            geschiedenis = simulation.genereer_geschiedenis(gebruikers, fietsen, simulation.stations, dagen=30)
+            simulation.sla_geschiedenis_op_in_db(geschiedenis)
+            logging.info("✅ Initiële simulatie uitgevoerd: database gevuld met gebruikers, fietsen en geschiedenis")
+        else:
+            logging.info("Database bevat al gegevens, simulatie wordt overgeslagen")
     except Exception as e:
-        print(f"❌ Fout bij initialiseren database of simulatie: {e}")
+        logging.error(f"❌ Fout bij initialiseren database of simulatie: {str(e)}", exc_info=True)
 
 
 @app.context_processor
 def inject_user():
-    return dict(user=session.get("Gebruiker"))  # Aangepast van "user" naar "Gebruiker" zoals in routes.py
+    return dict(user=session.get("Gebruiker"))
 
 
 @app.context_processor
