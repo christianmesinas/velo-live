@@ -3,24 +3,29 @@ version: '3.8'
 services:
   db:
     image: postgres:15
-    container_name: velo_db
+    container_name: velo_live_db
     env_file:
       - .env
     environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Velo123
+      POSTGRES_DB: velo_community
       TZ: Europe/Amsterdam
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
     ports:
       - "5433:5432"
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: velo_pgadmin
+    container_name: velo_live_pgadmin
     env_file:
       - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@velo.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
     ports:
-      - "80:80"
+      - "8080:80"  # Gewijzigd naar 8080 om conflicten te vermijden
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     depends_on:
@@ -28,7 +33,7 @@ services:
 
   web:
     build: .
-    container_name: velo_web
+    container_name: velo_live_web
     env_file:
       - .env
     ports:
@@ -36,23 +41,24 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/app  # ✅ Zorg voor live reload van alle projectbestanden
-    command: python app.py  # ✅ Start de app handmatig zodat debug werkt
+      - .:/app
+    command: python app.py
 
   app:
     build: .
-    depends_on:
-      - db
+    container_name: velo_live_app
+    env_file:
+      - .env
     environment:
       - DATABASE_URL=postgresql://admin:Velo123@db:5432/velo_community
       - PYTHONPATH=/app
     volumes:
       - .:/app
+    depends_on:
+      - db
     working_dir: /app/app/simulation
     command: python simulation.py
-
 
 volumes:
   postgres_data:
   pgadmin_data:
-

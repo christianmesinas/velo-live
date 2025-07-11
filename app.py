@@ -48,7 +48,7 @@ app.secret_key = getenv("SECRET_KEY", "fallback-secret")
 # Stel de secret key in voor sessies,
 app.secret_key = getenv("SECRET_KEY", "fallback-secret")
 
-# OAuth instellen,
+# OAuth instellen
 oauth = OAuth(app)
 oauth.register(
     "auth0",
@@ -58,18 +58,18 @@ oauth.register(
         "scope": "openid profile email",
         "audience": "https://" + getenv("AUTH0_DOMAIN") + "/api/v2/"
     },
-    server_metadata_url=f'https://{getenv("auth0_domain")}/.well-known/openid-configuration'
+    server_metadata_url=f'https://{getenv("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
 # ✅ Registreer je Blueprint-routes
 app.register_blueprint(routes)
 
 #zorg dat de databasetabellen automatisch worden aangemaakt bij het opstarten van de app
-# with app.app_context():
-#     db = SessionLocal()
-#     Base.metadata.create_all(bind=db.bind)
-#     db.close()
-#     print("✅ Tabellen automatisch aangemaakt bij opstart!")
+with app.app_context():
+    db = SessionLocal()
+    Base.metadata.create_all(bind=db.bind)
+    db.close()
+    print("✅ Tabellen automatisch aangemaakt bij opstart!")
 
 
 @app.context_processor

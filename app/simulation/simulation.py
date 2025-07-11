@@ -410,29 +410,29 @@ def genereer_geschiedenis(gebruikers, fietsen, stations, dagen=28):
                 })
 
                 # Update stationstatus
-                # update_station_na_rit(begin_station, eind_station)
+                update_station_na_rit(begin_station, eind_station)
                 #zorgt voor fouten bij stations db (alle stations worden volledig gevuld.)
 
                 # Update fietsstatus
-                # fiets["station_naam"] = eind_station["name"]
-                # fiets["ritten_vandaag"] += 1
-                # fiets["onderhoud_teller"] -= 1
-                # fiets["in_gebruik_tot"] = eindtijd
-                # if fiets["onderhoud_teller"] <= 0:
-                #     fiets["status"] = "onderhoud"
-                #     fiets["station_naam"] = None
-                #     fiets["onderhoud_teller"] = random.randint(10, 20)
+                fiets["station_naam"] = eind_station["name"]
+                fiets["ritten_vandaag"] += 1
+                fiets["onderhoud_teller"] -= 1
+                fiets["in_gebruik_tot"] = eindtijd
+                if fiets["onderhoud_teller"] <= 0:
+                    fiets["status"] = "onderhoud"
+                    fiets["station_naam"] = None
+                    fiets["onderhoud_teller"] = random.randint(10, 20)
 
-                # # Update beschikbare fietsen en stations
-                # beschikbare_fietsen_per_station[begin_station["name"]] = [
-                #     f for f in beschikbare_fietsen_per_station[begin_station["name"]]
-                #     if f["id"] != fiets["id"]
-                # ]
-                # beschikbare_fietsen_per_station[eind_station["name"]].append(fiets)
-                # if begin_station["free_bikes"] == 0:
-                #     stations_met_fietsen.discard(begin_station["name"])
-                # if eind_station["free_bikes"] > 0:
-                #     stations_met_fietsen.add(eind_station["name"])
+                # Update beschikbare fietsen en stations
+                beschikbare_fietsen_per_station[begin_station["name"]] = [
+                    f for f in beschikbare_fietsen_per_station[begin_station["name"]]
+                    if f["id"] != fiets["id"]
+                ]
+                beschikbare_fietsen_per_station[eind_station["name"]].append(fiets)
+                if begin_station["free_bikes"] == 0:
+                    stations_met_fietsen.discard(begin_station["name"])
+                if eind_station["free_bikes"] > 0:
+                    stations_met_fietsen.add(eind_station["name"])
 
                 # Registreer rit voor overlapcontrole
                 if datum not in ritten_per_gebruiker[gebruiker["id"]]:
