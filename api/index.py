@@ -116,6 +116,9 @@ try:
     except ImportError as e:
         logger.error(f"❌ Routes import mislukt: {e}")
         logger.info("App draait in debug mode zonder routes")
+    except Exception as e:
+        logger.error(f"❌ Fout bij registreren routes: {e}")
+        logger.info("App draait zonder routes")
 
     # Test routes
     @app.route('/')
