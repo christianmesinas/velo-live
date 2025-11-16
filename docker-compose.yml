@@ -42,7 +42,9 @@ services:
       - db
     volumes:
       - .:/app
-    command: python main.py
+    environment:
+      - DATABASE_URL=postgresql://admin:Velo123@db:5432/velo_community
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 --timeout 120 main:app
 
   app:
     build: .
