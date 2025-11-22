@@ -1,6 +1,13 @@
 import os
+
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+    # Fix: convert postgres:// → postgresql://
+    raw_db_url = os.getenv("DATABASE_URL", "")
+    if raw_db_url.startswith("postgres://"):
+        raw_db_url = raw_db_url.replace("postgres://", "postgresql://")
+
+    SQLALCHEMY_DATABASE_URI = raw_db_url
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # babel stuff
+
+    # Babel languages
     LANGUAGES = ['nl', 'en', 'es', 'fr']

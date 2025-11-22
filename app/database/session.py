@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 from os import getenv
 from dotenv import load_dotenv
 import logging
@@ -20,11 +21,18 @@ if DATABASE_URL:
     try:
         engine = create_engine(
             DATABASE_URL,
-            pool_pre_ping=True,
-            pool_recycle=300,
+            poolclass=NullPool,             # 🔥 Vercel fix: geen persistent poolen
+            connect_args={"sslmode": "require"}  # 🔥 Supabase vereist SSL
         )
-        SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+        SessionLocal = sessionmaker(
+            autocommit=False,
+            autoflush=False,
+            bind=engine
+        )
+
         logger.info("✅ Database sessie geconfigureerd")
+
     except Exception as e:
         logger.error(f"❌ Fout bij database configuratie: {e}")
         engine = None
