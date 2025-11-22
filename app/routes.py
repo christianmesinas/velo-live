@@ -4,8 +4,8 @@ from flask import jsonify
 from werkzeug.security import check_password_hash
 from flask import request, jsonify
 
+from app.database.session import engine
 
-import psycopg2
 import pytz
 from app.database.models import Usertable, Gebruiker, Station, Pas
 from flask import Blueprint, send_file, session, redirect, url_for, request, render_template,flash
@@ -205,32 +205,37 @@ def help():
     return render_template("help.html")
 
 
-@routes.route("/maps")
+@app.route('/maps')
 def markers():
-    import psycopg2
-    conn = psycopg2.connect( #connecteren met de database voor de stations data
-        dbname="velo_community",
-        user=env.get("POSTGRES_USER"),
-        password=env.get("POSTGRES_PASSWORD"),
-        host="host.docker.internal",
-        port="5433"
-    )
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM stations")
-    stations = cur.fetchall()
-    markers = []
-    for station in stations: #filteren van de data met een loop
-        markers.append({
-            'lat': float(station[3]),
-            'lon': float(station[4]),
-            'name': station[1],
-            'free-bikes': station[8],
-            'empty-slots': station[7],
-            'status': station[6],
-        })
-    cur.close()
-    conn.close()
-    return render_template("maps.html", markers=markers)
+    try:
+        conn = engine.raw_connection()
+        cur = conn.cursor()
+
+        cur.execute("""
+            SELECT id, nummer, naam, lat, lng, beschikbare_fietsen
+            FROM stations
+        """)
+        rows = cur.fetchall()
+
+        stations = []
+        for r in rows:
+            stations.append({
+                "id": r[0],
+                "nummer": r[1],
+                "naam": r[2],
+                "lat": float(r[3]),
+                "lng": float(r[4]),
+                "aantal": r[5]
+            })
+
+        cur.close()
+        conn.close()
+
+        return jsonify(stations)
+
+    except Exception as e:
+        print("MAPS ERROR:", e)
+        return jsonify({"error": str(e)}), 500
 
 @routes.route("/verhuur_fiets", methods=["POST"])
 def verhuur_fiets():
