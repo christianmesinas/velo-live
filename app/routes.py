@@ -24,7 +24,12 @@ from app.api.api import get_alle_stations, get_info
 from app.database.models import Usertable, Defect, Fiets, Geschiedenis
 from app.database.models import ContactBericht
 from app.database import SessionLocal
-from app.simulation import simulation
+try:
+    from app.simulation import simulation
+    SIMULATION_AVAILABLE = True
+except ImportError:
+    SIMULATION_AVAILABLE = False
+    simulation = None
 from collections import Counter
 from functools import wraps
 from werkzeug.utils import secure_filename
@@ -852,6 +857,24 @@ def admin_simulatie():
     drukste_per_station = []
 
     stations_copy = None
+
+    # Check of simulatie beschikbaar is
+    if not SIMULATION_AVAILABLE:
+        boodschap = "⚠️ Simulatie functionaliteit is niet beschikbaar in deze omgeving. Deze feature werkt alleen lokaal."
+        return render_template(
+            "admin_simulatie.html",
+            boodschap=boodschap,
+            ritten=[],
+            csv_bestand=None,
+            stations_overzicht=[],
+            aantal_ritten=0,
+            gemiddelde_duur=0,
+            langste_rit=0,
+            meest_gebruikte_fiets=None,
+            populairst_station=None,
+            drukste_per_station=[],
+            data_bron=data_bron
+        )
 
     if request.method == "POST":
         actie = request.form.get("actie", "")
